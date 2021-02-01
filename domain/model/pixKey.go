@@ -19,35 +19,35 @@ type PixKey struct {
 	Base      `valid:"required"`
 	Kind      string   `json:"kind" valid:"notnull"`
 	Key       string   `json:"key" valid:"notnull"`
-	AccountID string   `json:"account_id" valid:"notnull"`
+	AccountID string   `json:"account_id" valid:"-"`
 	Account   *Account `valid:"-"`
 	Status    string   `json:"status" valid:"notnull"`
 }
 
 func (pixKey *PixKey) isValid() error {
 	_, err := govalidator.ValidateStruct(pixKey)
-	if err != nil {
-		return err
-	}
 
-	if pixKey.Key != "email" && pixKey.Key != "cpf" {
-		return errors.New("invalid type key")
+	if pixKey.Kind != "email" && pixKey.Kind != "cpf" {
+		return errors.New("invalid type of key")
 	}
 
 	if pixKey.Status != "active" && pixKey.Status != "inactive" {
 		return errors.New("invalid status")
 	}
 
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
-func NewPixKey(account *Account, kind string, key string, accountId string) (*PixKey, error) {
+func NewPixKey(kind string, account *Account, key string) (*PixKey, error) {
+
 	pixKey := PixKey{
-		Kind:      kind,
-		Key:       key,
-		AccountID: accountId,
-		Account:   account,
-		Status:    "active",
+		Kind:    kind,
+		Key:     key,
+		Account: account,
+		Status:  "active",
 	}
 
 	pixKey.ID = uuid.NewV4().String()

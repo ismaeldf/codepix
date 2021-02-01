@@ -11,7 +11,7 @@ type Account struct {
 	OwnerName string    `json:"owner_name" valid:"notnull"`
 	Bank      *Bank     `valid:"-"`
 	Number    string    `json:"number" valid:"notnull"`
-	PixKeys   *[]PixKey `valid:"-"`
+	PixKeys   []*PixKey `valid:"-"`
 }
 
 func (account *Account) isValid() error {
@@ -23,7 +23,7 @@ func (account *Account) isValid() error {
 	return nil
 }
 
-func NewAccount(bank *Bank, ownerName string, number string) (*Account, error) {
+func NewAccount(bank *Bank, number string, ownerName string, ) (*Account, error) {
 	account := Account{
 		OwnerName: ownerName,
 		Bank:      bank,
@@ -33,7 +33,7 @@ func NewAccount(bank *Bank, ownerName string, number string) (*Account, error) {
 	account.ID = uuid.NewV4().String()
 	account.CreatedAt = time.Now()
 
-	err := bank.isValid()
+	err := account.isValid()
 	if err != nil {
 		return nil, err
 	}
