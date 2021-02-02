@@ -37,10 +37,10 @@ func TestNewTransaction(t *testing.T) {
 	require.Equal(t, transaction.Description, "My description")
 	require.Empty(t, transaction.CancelDescription)
 
-	//pixKeySameAccount, err := model.NewPixKey(kind, account, key)
+	pixKeySameAccount, err := model.NewPixKey(kind, account, key)
 
-	//_, err = model.NewTransaction(account, amount, pixKeySameAccount, "My description")
-	//require.NotNil(t, err)
+	_, err = model.NewTransaction(account, amount, pixKeySameAccount, "My description")
+	require.NotNil(t, err)
 
 	_, err = model.NewTransaction(account, 0, pixKey, "My description")
 	require.NotNil(t, err)
