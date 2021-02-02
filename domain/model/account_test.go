@@ -1,10 +1,12 @@
 package model_test
 
 import (
-	"github.com/ismaeldf/codepix/domain/model"
-	uuid "github.com/satori/go.uuid"
-	"github.com/stretchr/testify/require"
 	"testing"
+
+	uuid "github.com/satori/go.uuid"
+
+	"github.com/ismaeldf/codepix/domain/model"
+	"github.com/stretchr/testify/require"
 )
 
 func TestModel_NewAccount(t *testing.T) {
@@ -13,13 +15,13 @@ func TestModel_NewAccount(t *testing.T) {
 	bank, err := model.NewBank(code, name)
 
 	accountNumber := "abcnumber"
-	ownerName := "Ismael"
+	ownerName := "Wesley"
 	account, err := model.NewAccount(bank, accountNumber, ownerName)
 
 	require.Nil(t, err)
 	require.NotEmpty(t, uuid.FromStringOrNil(account.ID))
 	require.Equal(t, account.Number, accountNumber)
-	require.Equal(t, account.Bank.ID, bank.ID)
+	require.Equal(t, account.BankID, bank.ID)
 
 	_, err = model.NewAccount(bank, "", ownerName)
 	require.NotNil(t, err)

@@ -1,10 +1,12 @@
 package model_test
 
 import (
-	"github.com/ismaeldf/codepix/domain/model"
-	uuid "github.com/satori/go.uuid"
-	"github.com/stretchr/testify/require"
 	"testing"
+
+	uuid "github.com/satori/go.uuid"
+
+	"github.com/ismaeldf/codepix/domain/model"
+	"github.com/stretchr/testify/require"
 )
 
 func TestModel_NewPixKey(t *testing.T) {
@@ -13,7 +15,7 @@ func TestModel_NewPixKey(t *testing.T) {
 	bank, err := model.NewBank(code, name)
 
 	accountNumber := "abcnumber"
-	ownerName := "Ismael"
+	ownerName := "Wesley"
 	account, err := model.NewAccount(bank, accountNumber, ownerName)
 
 	kind := "email"

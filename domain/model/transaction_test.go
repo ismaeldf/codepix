@@ -1,10 +1,12 @@
 package model_test
 
 import (
-	"github.com/ismaeldf/codepix/domain/model"
-	uuid "github.com/satori/go.uuid"
-	"github.com/stretchr/testify/require"
 	"testing"
+
+	uuid "github.com/satori/go.uuid"
+
+	"github.com/ismaeldf/codepix/domain/model"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNewTransaction(t *testing.T) {
@@ -13,11 +15,11 @@ func TestNewTransaction(t *testing.T) {
 	bank, _ := model.NewBank(code, name)
 
 	accountNumber := "abcnumber"
-	ownerName := "Ismael"
+	ownerName := "Wesley"
 	account, _ := model.NewAccount(bank, accountNumber, ownerName)
 
 	accountNumberDestination := "abcdestination"
-	ownerName = "Iani"
+	ownerName = "Mariana"
 	accountDestination, _ := model.NewAccount(bank, accountNumberDestination, ownerName)
 
 	kind := "email"
@@ -53,11 +55,11 @@ func TestModel_ChangeStatusOfATransaction(t *testing.T) {
 	bank, _ := model.NewBank(code, name)
 
 	accountNumber := "abcnumber"
-	ownerName := "Ismael"
+	ownerName := "Wesley"
 	account, _ := model.NewAccount(bank, accountNumber, ownerName)
 
 	accountNumberDestination := "abcdestination"
-	ownerName = "Iani"
+	ownerName = "Mariana"
 	accountDestination, _ := model.NewAccount(bank, accountNumberDestination, ownerName)
 
 	kind := "email"
