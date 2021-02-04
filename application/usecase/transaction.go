@@ -6,12 +6,12 @@ import (
 	"log"
 )
 
-type TransactionUserCase struct {
+type TransactionUseCase struct {
 	TransactionRepository model.TransactionRepositoryInterface
 	PixRepository         model.PixKeyRepositoryInterface
 }
 
-func (t *TransactionUserCase) Register(accountId string, amount float64, pixKeyTo string, pixKeyKindTo string, description string) (*model.Transaction, error) {
+func (t *TransactionUseCase) Register(accountId string, amount float64, pixKeyTo string, pixKeyKindTo string, description string, id string) (*model.Transaction, error) {
 	account, err := t.PixRepository.FindAccount(accountId)
 	if err != nil {
 		return nil, err
@@ -35,7 +35,7 @@ func (t *TransactionUserCase) Register(accountId string, amount float64, pixKeyT
 	return nil, errors.New("unable to process this transaction")
 }
 
-func (t *TransactionUserCase) Confirm(transactionId string) (*model.Transaction, error) {
+func (t *TransactionUseCase) Confirm(transactionId string) (*model.Transaction, error) {
 	transaction, err := t.TransactionRepository.Find(transactionId)
 	if err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ func (t *TransactionUserCase) Confirm(transactionId string) (*model.Transaction,
 	return transaction, nil
 }
 
-func (t *TransactionUserCase) Complete(transactionId string) (*model.Transaction, error) {
+func (t *TransactionUseCase) Complete(transactionId string) (*model.Transaction, error) {
 	transaction, err := t.TransactionRepository.Find(transactionId)
 	if err != nil {
 		log.Println("Transaction not found", transactionId)
@@ -66,7 +66,7 @@ func (t *TransactionUserCase) Complete(transactionId string) (*model.Transaction
 	return transaction, nil
 }
 
-func (t *TransactionUserCase) Error(transactionId string, reason string) (*model.Transaction, error) {
+func (t *TransactionUseCase) Error(transactionId string, reason string) (*model.Transaction, error) {
 	transaction, err := t.TransactionRepository.Find(transactionId)
 	if err != nil {
 		return nil, err
